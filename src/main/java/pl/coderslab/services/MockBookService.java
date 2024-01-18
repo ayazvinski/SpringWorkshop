@@ -11,6 +11,8 @@ import java.util.Optional;
 public class MockBookService implements BookService{
 
     private List<Book> books;
+    private static Long nextId = 4L;
+
     public MockBookService() {
         books = new ArrayList<>();
         books.add(new Book(1L, "9788324631766", "Thinking in Java", "Bruce	Eckel", "Helion", "programming"));
@@ -33,13 +35,18 @@ public class MockBookService implements BookService{
 
     @Override
     public void add(Book book) {
-
+        book.setId(nextId++);
+        books.add(book);
     }
+
 
     @Override
     public void delete(Long id) {
-
+        Optional<Book> bookToDelete = get(id);
+        bookToDelete.ifPresent(book -> books.remove(book));
     }
+
+
 
     @Override
     public void update(Book book) {

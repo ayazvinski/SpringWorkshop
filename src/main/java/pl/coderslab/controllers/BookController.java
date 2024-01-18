@@ -39,6 +39,17 @@ public class BookController {
                     HttpStatus.NOT_FOUND, "entity not found");
     });
 }
+    @PostMapping("")
+    public void addBook(@RequestBody Book book) {
+        bookService.add(book);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeBook(@PathVariable Long id) {
+        bookService.delete(id);
+    }
+
+
 
 }
 
