@@ -49,6 +49,13 @@ public class BookController {
         bookService.delete(id);
     }
 
+    @PutMapping("")
+    @ResponseBody
+    public void updateBook(@RequestBody Book book) {
+        bookService.update(book);
+    }
+
+
 
 
 }
