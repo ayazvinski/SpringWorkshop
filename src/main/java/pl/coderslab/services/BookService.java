@@ -1,7 +1,6 @@
 package pl.coderslab.services;
 
 import pl.coderslab.Book;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,5 +14,8 @@ public interface BookService {
     void delete(Long id);
 
     void update(Book book);
+
+
+
 }
 

@@ -1,8 +1,13 @@
 package pl.coderslab.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.Book;
+import pl.coderslab.services.BookService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -13,5 +18,27 @@ public class BookController {
         return new Book(1L, "9788324631766", "Thinking in Java",
                 "Bruce Eckel", "Helion", "programming");
     }
+
+    private BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    @GetMapping("")
+    @ResponseBody
+    public List<Book> getList() {
+        return bookService.getBooks();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Book getBookById(@PathVariable Long id){
+        return this.bookService.get(id).orElseThrow(() -> {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found");
+    });
+}
+
 }
 
